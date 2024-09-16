@@ -1,0 +1,91 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(104, 62, 23, 0.484);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: showIn 1s ease-in-out forwards;
+
+
+
+    .modal-content {
+        background-color: rgba(227, 221, 219, 0.947);
+        color: rgba(40, 24, 9, 0.871);
+        padding: 1rem;
+        border-radius: .25rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: calc(100% - 2rem);
+        max-width: 600px;
+        opacity: 0;
+        transition: opacity .2s ease-in-out;
+        animation: fadeIn .2s ease-in-out forwards;
+
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: rgba(40, 24, 9, 0.871);
+        }
+
+        .modal-body {
+            margin-bottom: 1rem;
+
+            .order-list {
+                list-style: none;
+
+                .list-total {
+                    margin-top: 30px;
+                    border-bottom: .2px solid rgb(164, 164, 150);
+                    max-width: 25%;
+                    padding: 5px;
+                    border-radius: 3px;
+                }
+
+            }
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 10px;
+
+            button {
+                background-color: rgb(187, 185, 185);
+                color: rgb(44, 40, 40);
+                padding: 10px;
+                font-weight: 600;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                text-align: center;
+                transition: 0.3s;
+
+                &:hover {
+                    background-color: rgb(137, 133, 133);
+                }
+            }
+        }
+    }
+}
+
+@keyframes showIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}

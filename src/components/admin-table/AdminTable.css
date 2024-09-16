@@ -1,0 +1,21 @@
+.table-products {
+    border-collapse: collapse;
+
+    th {
+        background-color: rgba(146, 111, 65, 0.849);
+        color: white;
+        font-weight: bold;
+    }
+
+    td, 
+    th
+     {
+        border: 2px solid rgb(68, 43, 13);
+        padding: 2px 12px;
+    }
+
+        tr:nth-child(odd) {
+            background-color: rgba(214, 203, 177, 0.733);
+        }
+    
+} 

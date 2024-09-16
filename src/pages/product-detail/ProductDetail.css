@@ -1,0 +1,129 @@
+.loader-container {
+    display: flex;
+    color: rgba(49, 46, 46, 0.618);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.main-detail-product {
+    height: 100%;
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    flex: 1;
+    background-color: rgba(211, 196, 160, 0.507);
+    margin: 40px;
+    padding: 20px;
+    width: 70%;
+    margin-left: 50%;
+    translate: -50%; 
+    align-items: center; 
+
+    .image-detail {
+        width: 100%;
+        height: 100%;
+        margin-left: 10%;
+
+        img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            align-items: center;
+            border-radius: 20px;
+
+        }
+    }
+
+
+    .container-info {
+        width: 100%;
+        height: 400px;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 20px;
+        background-color: rgba(127, 111, 105, 0.129);
+        display: flex;
+        flex-direction: column;
+        margin-right: 10%;
+        border: .4px solid rgba(64, 37, 25, 0.322);
+    }
+
+    .nameproduct {
+
+        h3 {
+            font-size: 1rem;
+            font-style: italic;
+            color: rgba(64, 37, 25, 0.884);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: rgba(64, 37, 25, 0.884);
+            margin-bottom: 20px;
+        }
+    }
+
+    .detail-price {
+        h3 {
+            color: rgb(65, 59, 56);
+            margin-bottom: 10px;
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: rgba(64, 37, 25, 0.884);
+            margin-bottom: 40px;
+            font-weight: 400;
+            font-size: 18px;
+            font-style: italic;
+            padding-bottom: 20px;
+            border-bottom: .25px solid  rgba(65, 59, 56, 0.59);
+        }
+
+    }
+
+    .detail-btn {
+        padding: 10px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        justify-content: center;
+
+        .product-button, .home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 50%;
+            gap: 1rem;
+            color: white;
+            background-color: rgba(59, 55, 48, 0.899);
+            border-radius: 4px;
+            border: none;
+            padding: 10px 12px;
+            font-size: 1rem;
+            transition: 0.3s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(40, 25, 2, 0.905);
+            }
+
+            
+        }
+
+        .link {
+            width: 20%;
+        }
+
+    }
+
+
+
+
+}
