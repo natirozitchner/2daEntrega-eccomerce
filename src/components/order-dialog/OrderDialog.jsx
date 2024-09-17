@@ -25,9 +25,9 @@ export default function OrderDialog() {
                             
 
                         }
-                        <li className="list-total">
-                            Total:  $ {total}
-                        </li>
+                        <div className="list-total">
+                            <strong>Total:  $ {total}</strong>
+                        </div>
                     </ul>
 
                 </div>
