@@ -35,9 +35,9 @@ export default function AdminProduct() {
     }, [selectedProduct, setValue, reset])
 
 
-    async function getProducts() { //con esta function traemos productos de nuestro moke appi
+    async function getProducts() { 
         try {
-            //carga de productos
+            
             const response = await axios.get(`${URL}/products`)
 
             setProducts(response.data)
@@ -74,7 +74,7 @@ export default function AdminProduct() {
             }
         })
 
-    }//con esta function eliminamos productos
+    }
 
 
     async function onProductSubmit(producto) {
@@ -112,7 +112,7 @@ export default function AdminProduct() {
         }
     } 
 
-    // #Editar productos
+    
     function handleEditProduct(producto) {
         setSelectedProduct(producto)
     }

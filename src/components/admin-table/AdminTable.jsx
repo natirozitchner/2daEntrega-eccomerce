@@ -1,5 +1,5 @@
 import AdminRow from '../admin-row/AdminRow'
-import './AdminTable.css'
+
 
 
 export default function AdminTable({products, deleteProduct, handleEditProduct}) {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import TableUsers from "../../components/table-users/TableUsers";
 
 
 const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1"
@@ -80,6 +81,38 @@ export default function AdminUser() {
         }
     } 
 
+    function deleteUser(id) {
+
+        Swal.fire({
+            title: "Borrar usuario",
+            text: "Realmente desea borrar este usuario",
+            icon: "warning",
+            showCancelButton: true,
+            reverseButtons: true,
+        }).then(async (result) => {
+            try {
+                if (result.isConfirmed) {
+                    const response = await axios.delete(`${URL}/usuarios/${id}`);
+
+                    console.log(response.data);
+
+                    getUsers();
+                }
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    title: "Error al borrar",
+                    text: "El usuario no fue borrado",
+                    icon: "error"
+                })
+            }
+        })
+    }
+
+    function editUser(usuario) {
+        setSelectedUser(usuario)
+    }
+
 
     return (
         <>
@@ -125,6 +158,16 @@ export default function AdminUser() {
                         </div>
 
                         <div className="item-registro">
+                            <label htmlFor="category">Categoria</label>
+                            <select id="category" {...register("category", { required: true })}>
+                                <option value="Usuario de la empresa">Usuario de la empresa</option>
+                                <option value="Usuario fuera de la empresa">Usuario fuera de la empresa</option>
+
+                                {errors.category  && <div className="input-error">El campo es requerido</div>}
+                            </select>
+                        </div>
+
+                        <div className="item-registro">
                             <label htmlFor="image">URL de foto de perfil</label>
                             <input id="image" type="url" {...register("image", {required: true})} className="item-registro" />
 
@@ -140,7 +183,9 @@ export default function AdminUser() {
                 </div>
 
                 <div className="table-container">
-                
+                <TableUsers  users={users} deleteUser={deleteUser}
+                editUser={editUser}
+                />
                 </div>
             
             
