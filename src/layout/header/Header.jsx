@@ -46,6 +46,11 @@ export default function Header() {
                   Admin productos
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/admin-users" className="nav-link">
+                  Admin Users
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </div>

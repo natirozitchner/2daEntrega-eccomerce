@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import "./AdminProduct.css"
 import { useEffect, useState } from "react";
 import AdminTable from "../../components/admin-table/AdminTable";
 import Swal from "sweetalert2";
