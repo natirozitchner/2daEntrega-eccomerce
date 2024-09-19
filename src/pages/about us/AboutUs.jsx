@@ -30,7 +30,7 @@ export default function AboutUs() {
       <img src="/src/assets/IMG_8906 (1).jpg" alt="nati" />
       <span className="integrantes-info">
         <h2>Nathalie Rozitchner</h2>
-        <p>Programadora fullstack en progreso, actriz y productora técnica.</p>
+        <p>Programadora fullstack en progreso.</p>
       </span>
     </div>
   </main>
