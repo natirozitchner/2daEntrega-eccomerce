@@ -9,7 +9,7 @@ export default function TableUsers({users, deleteUser, editUser}) {
             <th>Imagen</th>
             <th>Nombre completo</th>
             <th>Fecha de nacimiento</th>
-            <th>Categoria</th>
+            <th>Provincia</th>
             <th>Correo electrónico</th>
             <th>Acciones</th>
         </tr>

@@ -158,14 +158,34 @@ export default function AdminUser() {
                         </div>
 
                         <div className="item-registro">
-                            <label htmlFor="category">Categoria</label>
-                            <select id="category" {...register("category", { required: true })}>
-                                <option value="Usuario de la empresa">Usuario de la empresa</option>
-                                <option value="Usuario fuera de la empresa">Usuario fuera de la empresa</option>
-
-                                {errors.category  && <div className="input-error">El campo es requerido</div>}
-                            </select>
-                        </div>
+                    <label htmlFor="province">Seleccione su provincia</label>
+                    <select name="provincia" id="province" {...register("province", {required: true})} >
+                        <option value="BUENOS AIRES">BUENOS AIRES</option>
+                        <option value="CIUDAD AUTONOMA DE BUENOS AIRES">CIUDAD AUTONOMA DE BS AS</option>
+                        <option value="CATAMARCA">CATAMARCA</option>
+                        <option value="CORDOBA">CORDOBA</option>
+                        <option value="CORRIENTES">CORRIENTES</option>
+                        <option value="CHACO">CHACO</option>
+                        <option value="CHUBUT">CHUBUT</option>
+                        <option value="ENTRE RIOS">ENTRE RIOS</option>
+                        <option value="FORMOSA">FORMOSA</option>
+                        <option value="JUJUY">JUJUY</option>
+                        <option value="LA PAMPA">LA PAMPA</option>
+                        <option value="LA RIOJA">LA RIOJA</option>
+                        <option value="MENDOZA">MENDOZA</option>
+                        <option value="MISIONES">MISIONES</option>
+                        <option value="NEUQUEN">NEUQUEN</option>
+                        <option value="RIO NEGRO">RIO NEGRO</option>
+                        <option value="SALTA">SALTA</option>
+                        <option value="SAN LUIS">SAN LUIS</option>
+                        <option value="SANTA CRUZ">SANTA CRUZ</option>
+                        <option value="SANTA FE">SANTA FE</option>
+                        <option value="SANTIAGO DEL ESTERO">SANTIAGO DEL ESTERO</option>
+                        <option value="TIERRA DEL FUEGO">TIERRA DEL FUEGO</option>
+                        <option value="TUCUMAN">TUCUMAN</option>
+                    </select>
+                    {errors.province?.type === "required" && <div className="input-error">El campo es requerido</div>}
+                </div>
 
                         <div className="item-registro">
                             <label htmlFor="image">URL de foto de perfil</label>

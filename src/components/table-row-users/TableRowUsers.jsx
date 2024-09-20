@@ -14,7 +14,7 @@ export default function TableRowUsers({ usuario, deleteUser, editUser }) {
                 {usuario.birthday}
             </td>
             <td className="category">
-                {usuario.category}
+                {usuario.province}
             </td>
             <td className="mail">
                 {usuario.mail}

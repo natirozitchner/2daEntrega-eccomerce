@@ -1,10 +1,10 @@
-import { NavLink, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import "./ProductDetail.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useOrder } from "../../context/OrderContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHouse } from "@fortawesome/free-solid-svg-icons"
+import { faStar } from "@fortawesome/free-solid-svg-icons"
 
 const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1";
 
@@ -54,18 +54,27 @@ export default function ProductDetail() {
           <h1>{product?.name}</h1>
         </div>
 
+        <div className="reseña">
+          <h4>Reseña</h4> 
+          <FontAwesomeIcon icon={faStar}/>
+          <FontAwesomeIcon icon={faStar}/> 
+          <FontAwesomeIcon icon={faStar}/>
+          <FontAwesomeIcon icon={faStar}/>
+        </div>
+
         <div className="detail-price">
         <h3>$ {product?.price}</h3>
         <p>{product?.description}</p>
         </div>
 
         <div className="detail-btn">
-          <NavLink className="home link" to="/" title="Volver a principal">
-          <FontAwesomeIcon icon={faHouse}/>
-          </NavLink>
           <button className="product-button" onClick={()=>addProduct(product)}>
-          Añadir al carrito 
+          Agregar al carrito
           </button>
+          <div className="cupon">
+          CUPON DE DESCUENTO
+            <input type="text" placeholder="Ingrese cupón" />
+          </div>
         </div>
 
       </div>

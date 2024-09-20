@@ -40,15 +40,15 @@ export default function Registro() {
         <form className="form-registro" onSubmit={handleSubmit(onUserSubmit)}>
 
           <div className="item-registro">
-            <label htmlFor="name">Nombre completo</label>
-            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })} />
+            <label htmlFor="name">Nombre completo *</label>
+            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })}  placeholder='Ejemplo'/>
 
             {errors.name?.type === "required" && <div className="input-error">El campo es requerido</div>}
             {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
           </div>
 
           <div className="item-registro">
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password">Contraseña *</label>
             <input type="password" id="password" {...register("password", { required: true, minLength: 6, maxLength: 20 })}
             />
 
@@ -59,14 +59,14 @@ export default function Registro() {
 
 
           <div className="item-registro">
-            <label htmlFor="birthday">Fecha de nacimiento</label>
+            <label htmlFor="birthday">Fecha de nacimiento *</label>
             <input id="birthday" type="date" {...register("birthday", { required: true })} />
 
             {errors.birthday?.type === "required" && <div className="input-error">El campo es requerido</div>}
           </div>
 
           <div className="item-registro">
-            <label htmlFor="mail">Correo electrónico</label>
+            <label htmlFor="mail">Correo electrónico *</label>
             <input type="email" id="mail" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" placeholder="ejemplo@gmail.com"
               {...register("mail", { required: true, minLength: 6, maxLength: 25 })}
             />
@@ -77,16 +77,37 @@ export default function Registro() {
 
 
           <div className="item-registro">
-            <label htmlFor="category">Categoria</label>
-            <select id="category" {...register("category", { required: true })}>
-              <option value="Usuario de la empresa">Usuario de la empresa</option>
-              <option value="Usuario fuera de la empresa">Usuario fuera de la empresa</option>
-            </select>
-            {errors.category && <div className="input-error">El campo es requerido</div>}
-          </div>
+                    <label htmlFor="province">Seleccione su provincia *</label>
+                    <select name="provincia" id="province" {...register("province", {required: true})} >
+                        <option value="BUENOS AIRES">BUENOS AIRES</option>
+                        <option value="CIUDAD AUTONOMA DE BUENOS AIRES">CIUDAD AUTONOMA DE BS AS</option>
+                        <option value="CATAMARCA">CATAMARCA</option>
+                        <option value="CORDOBA">CORDOBA</option>
+                        <option value="CORRIENTES">CORRIENTES</option>
+                        <option value="CHACO">CHACO</option>
+                        <option value="CHUBUT">CHUBUT</option>
+                        <option value="ENTRE RIOS">ENTRE RIOS</option>
+                        <option value="FORMOSA">FORMOSA</option>
+                        <option value="JUJUY">JUJUY</option>
+                        <option value="LA PAMPA">LA PAMPA</option>
+                        <option value="LA RIOJA">LA RIOJA</option>
+                        <option value="MENDOZA">MENDOZA</option>
+                        <option value="MISIONES">MISIONES</option>
+                        <option value="NEUQUEN">NEUQUEN</option>
+                        <option value="RIO NEGRO">RIO NEGRO</option>
+                        <option value="SALTA">SALTA</option>
+                        <option value="SAN LUIS">SAN LUIS</option>
+                        <option value="SANTA CRUZ">SANTA CRUZ</option>
+                        <option value="SANTA FE">SANTA FE</option>
+                        <option value="SANTIAGO DEL ESTERO">SANTIAGO DEL ESTERO</option>
+                        <option value="TIERRA DEL FUEGO">TIERRA DEL FUEGO</option>
+                        <option value="TUCUMAN">TUCUMAN</option>
+                    </select>
+                    {errors.province?.type === "required" && <div className="input-error">El campo es requerido</div>}
+                </div>
 
           <div className="item-registro">
-            <label htmlFor="image">URL de foto de perfil</label>
+            <label htmlFor="image">URL de foto de perfil *</label>
             <input id="image" type="url" {...register("image", { required: true })} className="item-registro" />
 
             {errors.image && <div className="input-error">El campo es requerido</div>}
