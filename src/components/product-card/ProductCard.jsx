@@ -41,8 +41,8 @@ export default function ProductCard({ prod }) {
                 <NavLink to={`/product-detail/${prod.id}`} className="product-button" title="Ver detalle">
                     <FontAwesomeIcon icon={faUpRightFromSquare} />
                 </NavLink>
-
             </footer>
+            
         </article>
 
     )

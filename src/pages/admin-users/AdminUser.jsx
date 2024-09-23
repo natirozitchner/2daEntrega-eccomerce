@@ -74,6 +74,13 @@ export default function AdminUser() {
             }
             reset()
             getUsers()
+
+            Swal.fire({
+                title:"Usuario creado",
+                text: "Su usuario fue creado correctamente",
+                icon: "success",
+                timer:1500
+            })
             
 
         } catch (error) {
@@ -85,7 +92,7 @@ export default function AdminUser() {
 
         Swal.fire({
             title: "Borrar usuario",
-            text: "Realmente desea borrar este usuario",
+            text: "¿Realmente desea borrar este usuario?",
             icon: "warning",
             showCancelButton: true,
             reverseButtons: true,
@@ -189,7 +196,7 @@ export default function AdminUser() {
 
                         <div className="item-registro">
                             <label htmlFor="image">URL de foto de perfil</label>
-                            <input id="image" type="url" {...register("image", {required: true})} className="item-registro" />
+                            <input id="image" type="url" {...register("image", {required: true})} />
 
                             {errors.image && <div className="input-error">El campo es requerido</div>}
                         </div>

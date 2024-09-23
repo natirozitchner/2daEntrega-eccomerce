@@ -51,7 +51,7 @@ export default function AdminProduct() {
 
         Swal.fire({
             title: "Borrar producto",
-            text: "Realmente desea borrar este producto",
+            text: "¿Realmente desea borrar este producto?",
             icon: "warning",
             showCancelButton: true,
             reverseButtons: true,

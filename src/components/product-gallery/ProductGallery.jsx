@@ -25,7 +25,6 @@ export default function ProductGallery() {
     }
 
 
-
     return (
         <section className="product-section">
 

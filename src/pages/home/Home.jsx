@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <section className="section-banner">
         <div className="banner-img">
-          <img src="/src/assets/foto-banner.PNG" alt="foto-banner" />
+          <img src="/src/assets/foto-banner.PNG" alt="" />
         </div>
         <div className="banner-text">
           <h2 className="banner-title">SMOOTH CLOTHES</h2>

@@ -147,12 +147,6 @@ body {
     border: 1px solid rgba(84, 63, 36, 0.405);
     height: 100%;
     margin-top: 20px;
-
-    .input-error {
-      color: rgba(105, 12, 31, 0.664);
-      font-size: 0.8rem;
-      margin: 15px;
-    }
   }
 
   .table-container {
@@ -179,6 +173,12 @@ body {
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
   padding-top: 10px;
+
+  .input-error {
+    color: rgba(105, 12, 31, 0.664);
+    font-size: 0.8rem;
+    margin: 15px;
+  }
 
   label {
     margin-bottom: 2px;
@@ -275,13 +275,14 @@ body {
               .button-edit {
                   width: 30px;
                   height: 30px;
-                  background-color: rgba(45, 45, 158, 0.849);
+                  background-color: rgba(67, 35, 6, 0.849);
                   border: none;
-                  border-radius: 8px;
+                  border-radius: 6px;
                   cursor: pointer;
+                  transition: 0.3s;
 
                   &:hover {
-                      background-color: rgba(19, 19, 98, 0.849);
+                      background-color: rgba(33, 17, 2, 0.849);
                   }
 
                   .edit {
@@ -296,7 +297,7 @@ body {
                   height: 30px;
                   background-color: red;
                   border: none;
-                  border-radius: 8px;
+                  border-radius: 6px;
                   cursor: pointer;
                   transition: 0.3s;
 

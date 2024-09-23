@@ -1,6 +1,7 @@
 .main-about-us {
+
     display: flex;
-    flex-grow: 1;
+    flex: 1;
     gap: 10px;
     background-color: rgba(211, 196, 160, 0.507);
     margin-top: 30px;
@@ -63,8 +64,8 @@
         font-family: monospace;
 
         img {
-            width: 280px;
-            height: 280px;
+            width: 260px;
+            height: 260px;
             object-fit: cover;
             padding: 10px;
         }

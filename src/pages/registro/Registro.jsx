@@ -41,7 +41,7 @@ export default function Registro() {
 
           <div className="item-registro">
             <label htmlFor="name">Nombre completo *</label>
-            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })}  placeholder='Ejemplo'/>
+            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })}  placeholder='Juan Gómez'/>
 
             {errors.name?.type === "required" && <div className="input-error">El campo es requerido</div>}
             {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
@@ -49,11 +49,11 @@ export default function Registro() {
 
           <div className="item-registro">
             <label htmlFor="password">Contraseña *</label>
-            <input type="password" id="password" {...register("password", { required: true, minLength: 6, maxLength: 20 })}
+            <input type="password" id="password" {...register("password", { required: true, minLength: 5, maxLength: 20 })}
             />
 
             {errors.password?.type === "required" && <div className="input-error">El campo es requerido</div>}
-            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
+            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 5</div>}
             {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 20</div>}
           </div>
 
@@ -108,21 +108,18 @@ export default function Registro() {
 
           <div className="item-registro">
             <label htmlFor="image">URL de foto de perfil *</label>
-            <input id="image" type="url" {...register("image", { required: true })} className="item-registro" />
+            <input id="image" type="url" {...register("image", { required: true })} />
 
             {errors.image && <div className="input-error">El campo es requerido</div>}
           </div>
-
 
           <button type="submit" disabled={!isValid} className="btn">
             Registrarse
           </button>
 
-
         </form>
 
       </main>
     </>
-
   )
 }

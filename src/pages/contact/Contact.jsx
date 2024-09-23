@@ -18,7 +18,7 @@ export default function Contact() {
             id="nombre"
             minLength={5}
             maxLength={60}
-            placeholder="Julian Gomez"
+            placeholder="Juan Gómez"
             required=""
             autoFocus=""
           />
@@ -52,6 +52,7 @@ export default function Contact() {
         </div>
       </form>
     </section>
+
     <section className="mapa-contacto">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.0167922325904!2d-58.44000092488612!3d-34.57844165616272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb594811ef4a9%3A0x1cd6e1ff7aee4e60!2sAr%C3%A9valo%202005%2C%20C1414CQO%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1715059810914!5m2!1ses-419!2sar"

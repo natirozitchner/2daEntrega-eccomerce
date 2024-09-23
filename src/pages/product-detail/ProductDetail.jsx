@@ -21,8 +21,8 @@ export default function ProductDetail() {
 
   async function getProduct() {
     try {
-      const response = await axios.get(`${URL}/products/${id}`)
-      setProduct(response.data)
+      const resp = await axios.get(`${URL}/products/${id}`)
+      setProduct(resp.data)
 
     } catch (error) {
       alert("Error al obtener producto")
@@ -32,8 +32,8 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="loader container">
-        <h1>Cargando...</h1>
+      <div className="loader-product-detail">
+        <h1>Cargando detalles...</h1>
       </div>
     )
   }
@@ -44,7 +44,7 @@ export default function ProductDetail() {
     <section className="main-detail-product">
 
       <div className="image-detail">
-        <img src={product?.image} alt="" />
+        <img src={product?.image} alt="producto" />
       </div>
 
       <div className="container-info">
@@ -72,15 +72,14 @@ export default function ProductDetail() {
           Agregar al carrito
           </button>
           <div className="cupon">
-          CUPON DE DESCUENTO
-            <input type="text" placeholder="Ingrese cupón" />
+          CUPÓN DE DESCUENTO
+            <input type="text" placeholder="Ingrese el cupón" />
           </div>
         </div>
 
       </div>
-        
-    </section>
 
+    </section>
 
   )
 }
