@@ -49,11 +49,11 @@ export default function Registro() {
 
           <div className="item-registro">
             <label htmlFor="password">Contraseña *</label>
-            <input type="password" id="password" {...register("password", { required: true, minLength: 5, maxLength: 20 })}
+            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 20 })}
             />
 
             {errors.password?.type === "required" && <div className="input-error">El campo es requerido</div>}
-            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 5</div>}
+            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 4</div>}
             {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 20</div>}
           </div>
 
