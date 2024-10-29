@@ -4,6 +4,8 @@ import { faCartShopping, faUpRightFromSquare } from "@fortawesome/free-solid-svg
 import { NavLink } from "react-router-dom"
 import { useOrder } from "../../context/OrderContext"
 
+const URL = import.meta.env.VITE_LOCAL_SERVER
+
 
 export default function ProductCard({ prod }) {
 
@@ -15,7 +17,7 @@ export default function ProductCard({ prod }) {
 
             <header className="product-header">
                 <div className="product-image">
-                <img src={prod.image} alt={prod.name} />
+                <img src={`${URL}/images/products/${prod.image}`} alt={prod.name} />
                 </div>
             </header>
 
@@ -38,7 +40,7 @@ export default function ProductCard({ prod }) {
                 <button className="product-button" title="Añadir al carrito" onClick={()=>addProduct(prod)}>
                     <FontAwesomeIcon icon={faCartShopping} />
                 </button>
-                <NavLink to={`/product-detail/${prod.id}`} className="product-button" title="Ver detalle">
+                <NavLink to={`/product-detail/${prod._id}`} className="product-button" title="Ver detalle">
                     <FontAwesomeIcon icon={faUpRightFromSquare} />
                 </NavLink>
             </footer>

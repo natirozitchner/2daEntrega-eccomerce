@@ -5,7 +5,7 @@ import AdminTable from "../../components/admin-table/AdminTable";
 import Swal from "sweetalert2";
 
 
-const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1";
+const URL = import.meta.env.VITE_LOCAL_SERVER;
 
 export default function AdminProduct() {
 
@@ -13,10 +13,13 @@ export default function AdminProduct() {
 
     const [selectedProduct, setSelectedProduct] = useState(null)
 
+    const [categories, setCategories] = useState([])
+
     const { register, reset, setValue, handleSubmit, formState: { errors, isValid } } = useForm();
 
     useEffect(() => {
-        getProducts()
+        getProducts();
+        getCategories();
     }, [])
 
     useEffect(()=>{
@@ -34,13 +37,28 @@ export default function AdminProduct() {
         
     }, [selectedProduct, setValue, reset])
 
+    async function getCategories() {
+        try {
+
+            const response = await axios.get(`${URL}/categories`)
+
+            console.log(response.data)
+
+            setCategories(response.data.categories)
+
+        } catch (error) {
+            console.log(error)
+            alert ("No se pudieron cargar las categorias")
+        }
+    }
+
 
     async function getProducts() { 
         try {
             
             const response = await axios.get(`${URL}/products`)
 
-            setProducts(response.data)
+            setProducts(response.data.products)
 
         } catch (error) {
             console.log(error)
@@ -81,10 +99,22 @@ export default function AdminProduct() {
 
         try {
 
-            if(selectedProduct){
-                const {id}=selectedProduct
+            const formData = new formData()
+            formData.append("name", producto.name);
+            formData.append("price", producto.price);
+            formData.append("description", producto.description);
+            formData.append("category", producto.category);
 
-                const prod = await axios.put(`${URL}/products/${id}`, producto)
+            if (producto.image[0]) {
+                formData.append("image", producto.image[0])
+            }
+
+
+            if(selectedProduct){
+
+                const {_id}=selectedProduct;
+
+                const prod = await axios.put(`${URL}/products/${_id}`, formData)
 
                 console.log(prod.data)
 
@@ -99,7 +129,7 @@ export default function AdminProduct() {
                 
 
             } else {
-                const prod = await axios.post(`${URL}/products`, producto) //con esta function creamos y mandamos productos a nuestro backend (mokeappi)
+                const prod = await axios.post(`${URL}/products`, formData) //con esta function creamos y mandamos productos a nuestro backend (mokeappi)
                 console.log(prod.data) //en data está el producto que se crea
                 
             }
@@ -146,9 +176,11 @@ export default function AdminProduct() {
                         <div className="item-registro">
                             <label htmlFor="category">Categoria</label>
                             <select id="category" {...register("category", { required: true })}>
-                                <option value="Remeras">Remeras</option>
-                                <option value="Pantalones">Pantalones</option>
-                                <option value="Buzos">Buzos</option>
+                                {
+                                    categories.map(cat => (
+                                        <option key={cat._id} value={cat.name}>{cat.name}</option>
+                                    ))
+                                }
 
                                 {errors.category  && <div className="input-error">El campo es requerido</div>}
                             </select>
@@ -171,8 +203,8 @@ export default function AdminProduct() {
                         </div>
 
                         <div className="item-registro">
-                            <label htmlFor="image">URL imagen</label>
-                            <input id="image" type="url" {...register("image", {required: true})} className="item-registro" />
+                            <label htmlFor="image">Imagen</label>
+                            <input accept="image/*" id="image" type="file" {...register("image", {required: true})} className="item-registro" />
 
                             {errors.image && <div className="input-error">El campo es requerido</div>}
 

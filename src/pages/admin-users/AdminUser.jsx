@@ -7,6 +7,8 @@ import TableUsers from "../../components/table-users/TableUsers";
 
 const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1"
 
+const URL2 = import.meta.env.VITE_LOCAL_SERVER;
+
 export default function AdminUser() {
 
     const [users, setUsers] = useState([])

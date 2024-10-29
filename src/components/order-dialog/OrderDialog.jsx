@@ -4,7 +4,7 @@ import "./OrderDialog.css"
 
 export default function OrderDialog() {
 
-    const { order, toggleModal, setToggleModal, total } = useOrder()
+    const { order, toggleModal, setToggleModal, total, createOrder } = useOrder()
 
     if (!toggleModal) return;
 
@@ -20,7 +20,7 @@ export default function OrderDialog() {
                     <ul className="order-list">
                         {
                             
-                                order.map((item) => (<OrderItem key={item.id} item={item} />
+                                order.map((item) => (<OrderItem key={item._id} item={item} />
                                 ))
                             
 
@@ -34,7 +34,7 @@ export default function OrderDialog() {
 
                 <div className="modal-btns">
                     <button onClick={() => setToggleModal(!toggleModal)}>❌</button>
-                    <button>Finalizar compra</button>
+                    <button onClick={()=> createOrder()}>Finalizar compra</button>
                 </div>
 
             </div>

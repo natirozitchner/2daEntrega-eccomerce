@@ -1,48 +1,56 @@
 import { Routes, Route } from "react-router-dom";
 import Contact from "./pages/contact/Contact";
 import Home from "./pages/home/Home";
-import Footer from "./layout/Footer/Footer";
-import Header from "./layout/header/Header";
 import AboutUs from "./pages/about us/AboutUs";
 import AdminProduct from "./pages/admin-product/AdminProduct";
 import ProductDetail from "./pages/product-detail/ProductDetail";
-import OrderDialog from "./components/order-dialog/OrderDialog";
 import AdminUser from "./pages/admin-users/AdminUser";
 import Registro from "./pages/registro/Registro";
+import Login from "./pages/login/Login"
+import Layout from "./layout/Layout";
+import AdminGuard from "./services/guard/AdminGuard";
+
 
 
 export default function App() {
-  
+
 
   return (
     <>
 
-    <OrderDialog/>
 
-    <Header/> 
 
-    <main>
       <Routes>
 
-        <Route path="/" element={ <Home/>} />
+        <Route path="/login" element={<Login />} />
 
-        <Route path="/product-detail/:id" element={<ProductDetail/>} />
+        <Route path="/" element={<Layout />} >
 
-        <Route path="/contact" element={ <Contact/>} />
+          <Route index element={<Home />} />
+          <Route path="product-detail/:id" element={<ProductDetail />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="about us" element={<AboutUs />} />
+          <Route path="registro" element={<Registro />} />
 
-        <Route path="/about us" element={<AboutUs/>} />
+          <Route path="admin-product" element={
+            <AdminGuard>
+              <AdminProduct />
+            </AdminGuard>
+          } />
 
-        <Route path="/registro" element={<Registro/>} />
+          <Route path="admin-users" element={
+            <AdminGuard>
+              <AdminUser />
+            </AdminGuard>
+          } />
 
-        <Route path="/admin-product" element={<AdminProduct/>} />
+          <Route path="*" element={<h1>Not found</h1>} />
 
-        <Route path="/admin-users" element={<AdminUser/>} />
+        </Route>
 
       </Routes>
-    </main>
 
-    <Footer/>
     </>
-  
+
   )
 }

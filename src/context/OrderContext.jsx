@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
 import Swal from "sweetalert2";
+import {useUser} from './UserContext'
+import axios from "axios";
 
 const OrderContext = createContext();
 
@@ -9,6 +11,8 @@ export const useOrder = () => useContext(OrderContext);
 
 
 export default function OrderProvider({ children }) {
+
+    const {user} = useUser()
 
     const [count, setCount] = useState(0)
     const [order, setOrder] = useState([]);
@@ -27,7 +31,7 @@ export default function OrderProvider({ children }) {
 
         console.log("Add product", product.name);
 
-        const productExists = order.find(prod => prod.id === product.id)
+        const productExists = order.find(prod => prod._id === product._id)
 
         if (productExists) {
 
@@ -70,9 +74,9 @@ export default function OrderProvider({ children }) {
     }
 
 
-    function removeItemOrder(id) {
+    function removeItemOrder(_id) {
 
-        const indice = order.findIndex(prod => prod.id === id)
+        const indice = order.findIndex(prod => prod._id === _id)
         const orderCopy = [...order]
 
         orderCopy.splice(indice, 1)
@@ -80,10 +84,10 @@ export default function OrderProvider({ children }) {
         setOrder(orderCopy)
     }
 
-    function changeCantItem (id, cant) {
+    function changeCantItem (_id, cant) {
 
         const newOrder =  order.map(prod=> {
-            if (prod.id===id) {
+            if (prod._id===_id) {
                 prod.quantity = cant
             }
 
@@ -92,6 +96,30 @@ export default function OrderProvider({ children }) {
 
         setOrder(newOrder)
 
+    }
+
+    async function createOrder() {
+
+        try {
+            const products = order.map(prod => {
+                return {
+                    product: prod._id,
+                    quantity: prod.quantity,
+                    price: prod.price
+                }
+            })
+    
+            await axios.post("http://localhost:3000/orders", {
+                products, user: user._id, total
+            })
+
+            alert("Orden creada")
+    
+        } catch (error) {
+            console.log(error)
+            alert ("Error al crear la orden")
+        }
+        
     }
 
 
@@ -105,7 +133,8 @@ export default function OrderProvider({ children }) {
                 count,
                 total,
                 removeItemOrder,
-                changeCantItem
+                changeCantItem,
+                createOrder
             }}
         >
             {children}

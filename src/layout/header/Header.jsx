@@ -2,11 +2,14 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChessQueen, faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from "../../context/OrderContext";
+import { useUser } from "../../context/UserContext";
 
 
 export default function Header() {
 
   const { setToggleModal, count } = useOrder()
+
+  const { user, logout } = useUser()
 
   return (
     <>
@@ -41,21 +44,43 @@ export default function Header() {
                   Acerca de nosotros
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/admin-product" className="nav-link">
-                  Admin productos
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/admin-users" className="nav-link">
-                  Admin Users
-                </NavLink>
-              </li>
+              {
+                user?.role === "admin" &&
+                <li className="nav-item">
+                  <NavLink to="/admin-product" className="nav-link">
+                    Admin productos
+                  </NavLink>
+                </li>
+              }
+              {
+                user?.role === "admin" &&
+                <li className="nav-item">
+                  <NavLink to="/admin-users" className="nav-link">
+                    Admin Users
+                  </NavLink>
+                </li>
+              }
+
+              {
+                user ? <li className="nav-item">
+                  <NavLink onClick={logout} className="nav-link">
+                    Logout
+                  </NavLink>
+                </li>
+                  : <li className="nav-item">
+                    <NavLink to="/login" className="nav-link">
+                      Login
+                    </NavLink>
+                  </li>
+              }
+
             </ul>
           </nav>
         </div>
 
         <div className="user-header">
+
+          {user.name || "NO USER"}
 
           <div className="user-order">
 
@@ -63,7 +88,7 @@ export default function Header() {
             <FontAwesomeIcon icon={faCartShopping}
               onClick={() => setToggleModal((estado) => !estado)}
             />
-            
+
           </div>
 
           <div className="user-image">
