@@ -2,24 +2,15 @@ import { useForm } from "react-hook-form";
 import "./Login.css";
 import { useUser } from "../../context/UserContext";
 
-
-
-
 export default function Login() {
     const { register, handleSubmit } = useForm();
 
-    const {login} = useUser()
-
-    async function handleLogin(data) {
-        login(data)
-    }
+    const { login } = useUser()
 
     return (
         <div className="login-container">
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
+
+            <form className="login-form" onSubmit={handleSubmit(login)}>
                 <h1>Login</h1>
                 <label>Correo electrónico</label>
                 <input
@@ -43,7 +34,7 @@ export default function Login() {
                     })}
                 />
 
-                <button type="submit" className="button">
+                <button type="submit" className="btn">
                     Ingresar
                 </button>
             </form>

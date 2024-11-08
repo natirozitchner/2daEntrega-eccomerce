@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
+const URL = import.meta.env.VITE_LOCAL_SERVER;
+
+
 export default function TableRowUsers({ usuario, deleteUser, editUser }) {
     return (
         <tr className="admin-table-row">
             <td className="image">
-                <img src={usuario.image} alt={usuario.name} />
+                <img src={`${URL}/images/users/${usuario.image}`} alt={usuario.name} />
             </td>
             <td className="name">
                 {usuario.name}
@@ -25,7 +28,7 @@ export default function TableRowUsers({ usuario, deleteUser, editUser }) {
                     <button className="button-edit" onClick={() => editUser(usuario)}>
                         <FontAwesomeIcon icon={faPenToSquare} className="edit" />
                     </button>
-                    <button className="button-delete" onClick={() => deleteUser(usuario.id)}>
+                    <button className="button-delete" onClick={() => deleteUser(usuario._id)}>
                         <FontAwesomeIcon icon={faTrashCan} className="delete" />
                     </button>
                 </div>

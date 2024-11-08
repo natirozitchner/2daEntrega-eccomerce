@@ -6,9 +6,11 @@ import { useOrder } from "../../context/OrderContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 
-const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1";
+
+const URL = import.meta.env.VITE_LOCAL_SERVER
 
 export default function ProductDetail() {
+
   const { addProduct } = useOrder()
 
   const { id } = useParams()
@@ -22,7 +24,8 @@ export default function ProductDetail() {
   async function getProduct() {
     try {
       const resp = await axios.get(`${URL}/products/${id}`)
-      setProduct(resp.data)
+
+      setProduct(resp.data.product)
 
     } catch (error) {
       alert("Error al obtener producto")
@@ -44,7 +47,7 @@ export default function ProductDetail() {
     <section className="main-detail-product">
 
       <div className="image-detail">
-        <img src={product?.image} alt="producto" />
+        <img src={`${URL}/images/products/${product.image}`} alt={product.name} />
       </div>
 
       <div className="container-info">

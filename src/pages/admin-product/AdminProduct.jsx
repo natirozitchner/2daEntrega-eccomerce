@@ -28,7 +28,7 @@ export default function AdminProduct() {
                 setValue("name", selectedProduct.name),
                 setValue("price", selectedProduct.price),
                 setValue("description", selectedProduct.description),
-                setValue("image",selectedProduct.image),
+                //setValue("image",selectedProduct.image),
                 setValue("category", selectedProduct.category),
                 setValue("createdAt", selectedProduct.createdAt)
         } else {
@@ -78,7 +78,7 @@ export default function AdminProduct() {
                 if (result.isConfirmed) {
                     const response = await axios.delete(`${URL}/products/${identificador}`);
 
-                    console.log(response.data);
+                    console.log(response.data.product);
 
                     getProducts();
                 }
@@ -99,7 +99,7 @@ export default function AdminProduct() {
 
         try {
 
-            const formData = new formData()
+            const formData = new FormData()
             formData.append("name", producto.name);
             formData.append("price", producto.price);
             formData.append("description", producto.description);
@@ -114,7 +114,7 @@ export default function AdminProduct() {
 
                 const {_id}=selectedProduct;
 
-                const prod = await axios.put(`${URL}/products/${_id}`, formData)
+                const prod = await axios.put(`${URL}/products/${_id}`, formData) 
 
                 console.log(prod.data)
 
@@ -129,8 +129,8 @@ export default function AdminProduct() {
                 
 
             } else {
-                const prod = await axios.post(`${URL}/products`, formData) //con esta function creamos y mandamos productos a nuestro backend (mokeappi)
-                console.log(prod.data) //en data está el producto que se crea
+                const prod = await axios.post(`${URL}/products`, formData)
+                console.log(prod.data) 
                 
             }
             reset()

@@ -17,7 +17,7 @@ export default function TableUsers({users, deleteUser, editUser}) {
     <tbody>
     {
                         users.map(user => {
-                            return <TableRowUsers key={user.id} usuario={user}
+                            return <TableRowUsers key={user._id} usuario={user}
                             deleteUser={deleteUser} editUser={editUser}
                             />
                         })

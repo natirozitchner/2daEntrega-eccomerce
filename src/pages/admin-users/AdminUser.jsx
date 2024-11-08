@@ -3,11 +3,10 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import TableUsers from "../../components/table-users/TableUsers";
+import { useUser } from "../../context/UserContext";
 
 
-const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1"
-
-const URL2 = import.meta.env.VITE_LOCAL_SERVER;
+const URL = import.meta.env.VITE_LOCAL_SERVER;
 
 export default function AdminUser() {
 
@@ -17,29 +16,34 @@ export default function AdminUser() {
 
     const { register, reset, setValue, handleSubmit, formState: { errors, isValid } } = useForm();
 
+    const { token } = useUser
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(selectedUser){
-                setValue("name", selectedUser.name),
+        if (selectedUser) {
+            setValue("name", selectedUser.name),
                 setValue("password", selectedUser.password),
                 setValue("birthday", selectedUser.birthday),
-                setValue("image",selectedUser.image),
+                //setValue("image", selectedUser.image),
                 setValue("mail", selectedUser.mail)
         } else {
             reset()
         }
-        
+
     }, [selectedUser, setValue, reset])
 
     useEffect(() => {
         getUsers()
     }, [])
 
-    async function getUsers() { 
+    async function getUsers() {
         try {
-            
-            const response = await axios.get(`${URL}/usuarios`)
+
+            const response = await axios.get(`${URL}/users`,{
+                headers: {
+                    Authorization:token
+                }
+            })
 
             setUsers(response.data)
 
@@ -52,45 +56,45 @@ export default function AdminUser() {
 
         try {
 
-            if(selectedUser){
-                const {id}=selectedUser
+            if (selectedUser) {
+                const { _id } = selectedUser
 
-                const user = await axios.put(`${URL}/usuarios/${id}`, usuario)
+                const user = await axios.put(`${URL}/users/${_id}`, usuario)
 
                 console.log(user.data)
 
                 Swal.fire({
-                    title:"Edición correcta",
+                    title: "Edición correcta",
                     text: "Los datos del usuario se editaron correctamente",
                     icon: "success",
-                    timer:1500
+                    timer: 1500
                 })
 
                 setSelectedUser(null)
-                
+
 
             } else {
-                const user = await axios.post(`${URL}/usuarios`, usuario) //con esta function creamos y mandamos productos a nuestro backend (mokeappi)
+                const user = await axios.post(`${URL}/users`, usuario)
                 console.log(user.data) //
-                
+
             }
             reset()
             getUsers()
 
             Swal.fire({
-                title:"Usuario creado",
+                title: "Usuario creado",
                 text: "Su usuario fue creado correctamente",
                 icon: "success",
-                timer:1500
+                timer: 1500
             })
-            
+
 
         } catch (error) {
             console.log(error)
         }
-    } 
+    }
 
-    function deleteUser(id) {
+    function deleteUser(_id) {
 
         Swal.fire({
             title: "Borrar usuario",
@@ -101,7 +105,7 @@ export default function AdminUser() {
         }).then(async (result) => {
             try {
                 if (result.isConfirmed) {
-                    const response = await axios.delete(`${URL}/usuarios/${id}`);
+                    const response = await axios.delete(`${URL}/users/${_id}`);
 
                     console.log(response.data);
 
@@ -167,38 +171,38 @@ export default function AdminUser() {
                         </div>
 
                         <div className="item-registro">
-                    <label htmlFor="province">Seleccione su provincia</label>
-                    <select name="provincia" id="province" {...register("province", {required: true})} >
-                        <option value="BUENOS AIRES">BUENOS AIRES</option>
-                        <option value="CIUDAD AUTONOMA DE BUENOS AIRES">CIUDAD AUTONOMA DE BS AS</option>
-                        <option value="CATAMARCA">CATAMARCA</option>
-                        <option value="CORDOBA">CORDOBA</option>
-                        <option value="CORRIENTES">CORRIENTES</option>
-                        <option value="CHACO">CHACO</option>
-                        <option value="CHUBUT">CHUBUT</option>
-                        <option value="ENTRE RIOS">ENTRE RIOS</option>
-                        <option value="FORMOSA">FORMOSA</option>
-                        <option value="JUJUY">JUJUY</option>
-                        <option value="LA PAMPA">LA PAMPA</option>
-                        <option value="LA RIOJA">LA RIOJA</option>
-                        <option value="MENDOZA">MENDOZA</option>
-                        <option value="MISIONES">MISIONES</option>
-                        <option value="NEUQUEN">NEUQUEN</option>
-                        <option value="RIO NEGRO">RIO NEGRO</option>
-                        <option value="SALTA">SALTA</option>
-                        <option value="SAN LUIS">SAN LUIS</option>
-                        <option value="SANTA CRUZ">SANTA CRUZ</option>
-                        <option value="SANTA FE">SANTA FE</option>
-                        <option value="SANTIAGO DEL ESTERO">SANTIAGO DEL ESTERO</option>
-                        <option value="TIERRA DEL FUEGO">TIERRA DEL FUEGO</option>
-                        <option value="TUCUMAN">TUCUMAN</option>
-                    </select>
-                    {errors.province?.type === "required" && <div className="input-error">El campo es requerido</div>}
-                </div>
+                            <label htmlFor="province">Seleccione su provincia</label>
+                            <select name="provincia" id="province" {...register("province", { required: true })} >
+                                <option value="BUENOS AIRES">BUENOS AIRES</option>
+                                <option value="CIUDAD AUTONOMA DE BUENOS AIRES">CIUDAD AUTONOMA DE BS AS</option>
+                                <option value="CATAMARCA">CATAMARCA</option>
+                                <option value="CORDOBA">CORDOBA</option>
+                                <option value="CORRIENTES">CORRIENTES</option>
+                                <option value="CHACO">CHACO</option>
+                                <option value="CHUBUT">CHUBUT</option>
+                                <option value="ENTRE RIOS">ENTRE RIOS</option>
+                                <option value="FORMOSA">FORMOSA</option>
+                                <option value="JUJUY">JUJUY</option>
+                                <option value="LA PAMPA">LA PAMPA</option>
+                                <option value="LA RIOJA">LA RIOJA</option>
+                                <option value="MENDOZA">MENDOZA</option>
+                                <option value="MISIONES">MISIONES</option>
+                                <option value="NEUQUEN">NEUQUEN</option>
+                                <option value="RIO NEGRO">RIO NEGRO</option>
+                                <option value="SALTA">SALTA</option>
+                                <option value="SAN LUIS">SAN LUIS</option>
+                                <option value="SANTA CRUZ">SANTA CRUZ</option>
+                                <option value="SANTA FE">SANTA FE</option>
+                                <option value="SANTIAGO DEL ESTERO">SANTIAGO DEL ESTERO</option>
+                                <option value="TIERRA DEL FUEGO">TIERRA DEL FUEGO</option>
+                                <option value="TUCUMAN">TUCUMAN</option>
+                            </select>
+                            {errors.province?.type === "required" && <div className="input-error">El campo es requerido</div>}
+                        </div>
 
                         <div className="item-registro">
                             <label htmlFor="image">URL de foto de perfil</label>
-                            <input id="image" type="url" {...register("image", {required: true})} />
+                            <input id="image" type="url" {...register("image", { required: true })} />
 
                             {errors.image && <div className="input-error">El campo es requerido</div>}
                         </div>
@@ -212,12 +216,12 @@ export default function AdminUser() {
                 </div>
 
                 <div className="table-container">
-                <TableUsers  users={users} deleteUser={deleteUser}
-                editUser={editUser}
-                />
+                    <TableUsers users={users} deleteUser={deleteUser}
+                        editUser={editUser}
+                    />
                 </div>
-            
-            
+
+
             </div>
 
         </>

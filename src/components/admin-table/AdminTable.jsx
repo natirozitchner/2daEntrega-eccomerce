@@ -19,7 +19,7 @@ export default function AdminTable({products, deleteProduct, handleEditProduct})
     <tbody>
     {
                         products.map(prod => {
-                            return <AdminRow key={prod.id} producto={prod} deleteProduct={deleteProduct}
+                            return <AdminRow key={prod._id} producto={prod} deleteProduct={deleteProduct}
                             handleEditProduct={handleEditProduct} />
                         })
                     }

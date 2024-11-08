@@ -12,7 +12,7 @@ export default function AdminRow({
   return (
     <tr className="admin-table-row">
       <td className="image">
-       <img src={`${URL}/images/products/${producto.image}`} alt={producto.name} /> 
+      <img src={`${URL}/images/products/${producto.image}`} alt={producto.name} /> 
       </td>
       <td className="name">{producto.name}</td>
       <td className="description">{producto.description}</td>

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const URL = "https://66cd01308ca9aa6c8cc93b19.mockapi.io/api/v1"
+const URL = import.meta.env.VITE_LOCAL_SERVER;
 
 export default function Registro() {
 
@@ -13,7 +13,7 @@ export default function Registro() {
 
     try {
 
-      const user = await axios.post(`${URL}/usuarios`, usuario)
+      const user = await axios.post(`${URL}/users`, usuario)
       console.log(user.data)  
         reset()
 
@@ -107,13 +107,13 @@ export default function Registro() {
                 </div>
 
           <div className="item-registro">
-            <label htmlFor="image">URL de foto de perfil *</label>
-            <input id="image" type="url" {...register("image", { required: true })} />
+            <label htmlFor="image">Foto de perfil</label>
+            <input accept="image/*" id="image" type="file" {...register("image")} />
 
             {errors.image && <div className="input-error">El campo es requerido</div>}
           </div>
 
-          <button type="submit" disabled={!isValid} className="btn">
+          <button type="submit" disabled={!isValid} className="btn"> 
             Registrarse
           </button>
 

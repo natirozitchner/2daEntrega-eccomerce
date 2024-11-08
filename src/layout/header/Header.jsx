@@ -4,6 +4,7 @@ import { faChessQueen, faBars, faCartShopping } from "@fortawesome/free-solid-sv
 import { useOrder } from "../../context/OrderContext";
 import { useUser } from "../../context/UserContext";
 
+const URL = import.meta.env.VITE_LOCAL_SERVER;
 
 export default function Header() {
 
@@ -80,7 +81,7 @@ export default function Header() {
 
         <div className="user-header">
 
-          {user.name || "NO USER"}
+          {user?.name}
 
           <div className="user-order">
 
@@ -92,7 +93,7 @@ export default function Header() {
           </div>
 
           <div className="user-image">
-            <img src="/src/assets/default user.png" alt="imagen de usuario" />
+            <img src={`${URL}/images/users/${user?.image}`} alt={user?.name} />
           </div>
 
         </div>
