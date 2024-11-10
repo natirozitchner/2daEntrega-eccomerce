@@ -7,6 +7,8 @@ import axios from "axios";
 
 const OrderContext = createContext();
 
+const URL = import.meta.env.VITE_LOCAL_SERVER
+
 export const useOrder = () => useContext(OrderContext);
 
 
@@ -101,6 +103,11 @@ export default function OrderProvider({ children }) {
     async function createOrder() {
 
         try {
+
+            if(!user?._id) {
+                alert("Necesitas iniciar sesión para crear una orden")
+                return
+            }
             const products = order.map(prod => {
                 return {
                     product: prod._id,
@@ -109,11 +116,17 @@ export default function OrderProvider({ children }) {
                 }
             })
     
-            await axios.post("http://localhost:3000/orders", {
+            await axios.post(`${URL}/orders`, {
                 products, user: user._id, total
             })
 
-            alert("Orden creada")
+            Swal.fire({
+                icon: "success",
+                title: "Orden creada",
+                timer: 1500
+            })
+
+
     
         } catch (error) {
             console.log(error)

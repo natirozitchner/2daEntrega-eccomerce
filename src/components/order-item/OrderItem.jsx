@@ -12,7 +12,7 @@ export default function OrderItem({ item }) {
     return (
         <li className="order-product">
             <div className="product-image">
-            <img src={ `${URL}/images/products/${item.image}`} alt="imagen del producto" /> 
+            <img src={ `${URL}/images/products/${item.image}`} alt={item.name} /> 
             </div>
             <div className="product-info">
                 {item.name}

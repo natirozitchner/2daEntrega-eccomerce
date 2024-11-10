@@ -94,7 +94,7 @@ export default function AdminUser() {
         }
     }
 
-    function deleteUser(_id) {
+    function deleteUser(id) {
 
         Swal.fire({
             title: "Borrar usuario",
@@ -105,7 +105,7 @@ export default function AdminUser() {
         }).then(async (result) => {
             try {
                 if (result.isConfirmed) {
-                    const response = await axios.delete(`${URL}/users/${_id}`);
+                    const response = await axios.delete(`${URL}/users/${id}`);
 
                     console.log(response.data);
 
@@ -118,6 +118,7 @@ export default function AdminUser() {
                     text: "El usuario no fue borrado",
                     icon: "error"
                 })
+                
             }
         })
     }
@@ -138,19 +139,20 @@ export default function AdminUser() {
 
                         <div className="item-registro">
                             <label htmlFor="name">Nombre completo</label>
-                            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })} />
+                            <input type="text" id="name" {...register("name", { required: true, minLength: 3, maxLength: 60})} />
 
                             {errors.name?.type === "required" && <div className="input-error">El campo es requerido</div>}
-                            {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
+                            {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 3</div>}
+                            {errors.name?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 60</div>}
                         </div>
 
                         <div className="item-registro">
                             <label htmlFor="password">Contraseña</label>
-                            <input type="password" id="password" {...register("password", { required: true, minLength: 6, maxLength: 20 })} />
+                            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 70 })} />
 
                             {errors.password?.type === "required" && <div className="input-error">El campo es requerido</div>}
-                            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
-                            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 20</div>}
+                            {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 4</div>}
+                            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 70</div>}
                         </div>
 
                         <div className="item-registro">
@@ -163,11 +165,24 @@ export default function AdminUser() {
                         <div className="item-registro">
                             <label htmlFor="mail">Correo electrónico</label>
                             <input type="email" id="mail" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" placeholder="ejemplo@gmail.com"
-                                {...register("mail", { required: true, minLength: 6, maxLength: 25 })}
+                                {...register("mail", { required: true, minLength: 7, maxLength: 90 })}
                             />
                             {errors.mail?.type === "required" && <div className="input-error">El campo es requerido</div>}
-                            {errors.mail?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
-                            {errors.mail?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 25</div>}
+                            {errors.mail?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 7</div>}
+                            {errors.mail?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 90</div>}
+                        </div>
+
+                        <div className="item-registro">
+                            <label htmlFor="role">Role</label>
+                            <select name="role" id="role" {...register("role" , {required: true})}>
+                                <option value="client">Client</option>
+                                <option value="admin">Admin</option>
+                                <option value="superadmin">SuperAdmin</option>
+                                <option value="user">User</option>
+                            </select>
+
+                            {errors.role?.type === "required" && <div className="input-error">El campo es requerido</div>}
+
                         </div>
 
                         <div className="item-registro">
@@ -201,8 +216,8 @@ export default function AdminUser() {
                         </div>
 
                         <div className="item-registro">
-                            <label htmlFor="image">URL de foto de perfil</label>
-                            <input id="image" type="url" {...register("image", { required: true })} />
+                            <label htmlFor="image">Foto de perfil</label>
+                            <input accept="image/*"  id="image" type="file" {...register("image", { required: true })} />
 
                             {errors.image && <div className="input-error">El campo es requerido</div>}
                         </div>

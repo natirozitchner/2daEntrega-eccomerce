@@ -23,6 +23,10 @@ export default function TableRowUsers({ usuario, deleteUser, editUser }) {
                 {usuario.mail}
             </td>
 
+            <td className="role">
+                {usuario.role}
+            </td>
+
             <td className="actions">
                 <div className="actions-container">
                     <button className="button-edit" onClick={() => editUser(usuario)}>

@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import AdminTable from "../../components/admin-table/AdminTable";
 import Swal from "sweetalert2";
+import { useUser } from "../../context/UserContext";
 
 
 const URL = import.meta.env.VITE_LOCAL_SERVER;
 
 export default function AdminProduct() {
 
-    const [products, setProducts] = useState([])
+    const [product, setProducts] = useState([])
 
     const [selectedProduct, setSelectedProduct] = useState(null)
 
@@ -21,6 +22,8 @@ export default function AdminProduct() {
         getProducts();
         getCategories();
     }, [])
+
+    const {token} = useUser()
 
     useEffect(()=>{
 
@@ -76,7 +79,11 @@ export default function AdminProduct() {
         }).then(async (result) => {
             try {
                 if (result.isConfirmed) {
-                    const response = await axios.delete(`${URL}/products/${identificador}`);
+                    const response = await axios.delete(`${URL}/products/${identificador}`, {
+                        headers: {
+                            Authorization: token
+                        }
+                    });
 
                     console.log(response.data.product);
 
@@ -109,14 +116,17 @@ export default function AdminProduct() {
                 formData.append("image", producto.image[0])
             }
 
-
             if(selectedProduct){
 
                 const {_id}=selectedProduct;
 
-                const prod = await axios.put(`${URL}/products/${_id}`, formData) 
+                const response = await axios.put(`${URL}/products/${_id}`, formData, {
+                    headers: {
+                        Authorization: token
+                    }
+                }) 
 
-                console.log(prod.data)
+                console.log(response.data)
 
                 Swal.fire({
                     title:"Edición correcta",
@@ -129,8 +139,12 @@ export default function AdminProduct() {
                 
 
             } else {
-                const prod = await axios.post(`${URL}/products`, formData)
-                console.log(prod.data) 
+                const response = await axios.post(`${URL}/products`, formData, {
+                    headers: {
+                        Authorization: token
+                    }
+                })
+                console.log(response.data) 
                 
             }
             reset()
@@ -139,6 +153,12 @@ export default function AdminProduct() {
 
         } catch (error) {
             console.log(error)
+            Swal.fire({
+                title: "Error al editar",
+                text: "El producto no fue editado",
+                icon: "error",
+                timer: 1500
+            })
         }
     } 
 
@@ -158,10 +178,12 @@ export default function AdminProduct() {
 
                         <div className="item-registro">
                             <label htmlFor="name">Nombre del producto</label>
-                            <input type="text" id="name" {...register("name", { required: true, minLength: 4 })} />
+                            <input type="text" id="name" {...register("name", { required: true, minLength: 4, maxLength:30 })} />
 
                             {errors.name?.type === "required" && <div className="input-error">El campo es requerido</div>}
                             {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 4</div>}
+                            {errors.name?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 30</div>}
+                            
                         </div>
 
                         <div className="item-registro">
@@ -170,7 +192,6 @@ export default function AdminProduct() {
                             {errors.description?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 120</div>}
                             {errors.description?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
                             {errors.description?.type === "required" && <div className="input-error">El campo es requerido</div>}
-
                         </div>
 
                         <div className="item-registro">
@@ -181,9 +202,8 @@ export default function AdminProduct() {
                                         <option key={cat._id} value={cat.name}>{cat.name}</option>
                                     ))
                                 }
-
-                                {errors.category  && <div className="input-error">El campo es requerido</div>}
                             </select>
+                            {errors.category  && <div className="input-error">El campo es requerido</div>}
                         </div>
 
                         <div className="item-registro">
@@ -220,7 +240,7 @@ export default function AdminProduct() {
                 </div>
 
                 <div className="table-container">
-                    <AdminTable products={products} deleteProduct={deleteProduct}
+                    <AdminTable products={product} deleteProduct={deleteProduct}
                     handleEditProduct={handleEditProduct} />
                 </div>
             </div>

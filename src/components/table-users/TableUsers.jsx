@@ -11,7 +11,9 @@ export default function TableUsers({users, deleteUser, editUser}) {
             <th>Fecha de nacimiento</th>
             <th>Provincia</th>
             <th>Correo electrónico</th>
+            <th>Role</th>
             <th>Acciones</th>
+            
         </tr>
     </thead>
     <tbody>

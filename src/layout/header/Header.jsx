@@ -92,9 +92,12 @@ export default function Header() {
 
           </div>
 
-          <div className="user-image">
+          {
+            user ? <div className="user-image">
             <img src={`${URL}/images/users/${user?.image}`} alt={user?.name} />
-          </div>
+            </div>
+            : ""
+          }
 
         </div>
 

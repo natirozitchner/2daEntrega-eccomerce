@@ -13,7 +13,7 @@ export default function Registro() {
 
     try {
 
-      const user = await axios.post(`${URL}/users`, usuario)
+      const user =  await axios.post(`${URL}/users`, usuario)
       console.log(user.data)  
         reset()
 
@@ -41,20 +41,21 @@ export default function Registro() {
 
           <div className="item-registro">
             <label htmlFor="name">Nombre completo *</label>
-            <input type="text" id="name" {...register("name", { required: true, minLength: 6 })}  placeholder='Juan Gómez'/>
+            <input type="text" id="name" {...register("name", { required: true, minLength: 3, maxLength:60})}  placeholder='Juan Gómez'/>
 
             {errors.name?.type === "required" && <div className="input-error">El campo es requerido</div>}
-            {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
+            {errors.name?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 3</div>}
+            {errors.name?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 60</div>}
           </div>
 
           <div className="item-registro">
             <label htmlFor="password">Contraseña *</label>
-            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 20 })}
+            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 70 })}
             />
 
             {errors.password?.type === "required" && <div className="input-error">El campo es requerido</div>}
             {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 4</div>}
-            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 20</div>}
+            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 70</div>}
           </div>
 
 
@@ -68,11 +69,11 @@ export default function Registro() {
           <div className="item-registro">
             <label htmlFor="mail">Correo electrónico *</label>
             <input type="email" id="mail" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" placeholder="ejemplo@gmail.com"
-              {...register("mail", { required: true, minLength: 6, maxLength: 25 })}
+              {...register("mail", { required: true, minLength: 7, maxLength: 90 })}
             />
             {errors.mail?.type === "required" && <div className="input-error">El campo es requerido</div>}
-            {errors.mail?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 6</div>}
-            {errors.mail?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 25</div>}
+            {errors.mail?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 7</div>}
+            {errors.mail?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 90</div>}
           </div>
 
 
@@ -103,12 +104,12 @@ export default function Registro() {
                         <option value="TIERRA DEL FUEGO">TIERRA DEL FUEGO</option>
                         <option value="TUCUMAN">TUCUMAN</option>
                     </select>
-                    {errors.province?.type === "required" && <div className="input-error">El campo es requerido</div>}
+                    {errors.province && <div className="input-error">El campo es requerido</div>}
                 </div>
 
           <div className="item-registro">
-            <label htmlFor="image">Foto de perfil</label>
-            <input accept="image/*" id="image" type="file" {...register("image")} />
+            <label htmlFor="image">Foto de perfil*</label>
+            <input accept="image/*" id="image" type="file" {...register("image", {required: true})} />
 
             {errors.image && <div className="input-error">El campo es requerido</div>}
           </div>
