@@ -87,6 +87,12 @@ export default function AdminProduct() {
 
                     console.log(response.data.product);
 
+                    Swal.fire({
+                        title: "Producto borrado",
+                        text: "El producto fue borrado correctamente",
+                        icon: "success"
+                    })
+
                     getProducts();
                 }
             } catch (error) {
@@ -145,6 +151,13 @@ export default function AdminProduct() {
                     }
                 })
                 console.log(response.data) 
+
+                Swal.fire({
+                    title: "Producto creado",
+                    text: "El producto se ha creado exitosamente",
+                    icon: "sucess",
+                    timer: 1500
+                })
                 
             }
             reset()
@@ -166,6 +179,7 @@ export default function AdminProduct() {
     function handleEditProduct(producto) {
         setSelectedProduct(producto)
     }
+
 
     return (
 

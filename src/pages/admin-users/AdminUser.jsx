@@ -16,7 +16,7 @@ export default function AdminUser() {
 
     const { register, reset, setValue, handleSubmit, formState: { errors, isValid } } = useForm();
 
-    const { token } = useUser
+    const { token } = useUser()
 
     useEffect(() => {
 
@@ -26,6 +26,7 @@ export default function AdminUser() {
                 setValue("birthday", selectedUser.birthday),
                 //setValue("image", selectedUser.image),
                 setValue("mail", selectedUser.mail)
+                setValue("province", selectedUser.province)
         } else {
             reset()
         }
@@ -39,13 +40,9 @@ export default function AdminUser() {
     async function getUsers() {
         try {
 
-            const response = await axios.get(`${URL}/users`,{
-                headers: {
-                    Authorization:token
-                }
-            })
+            const response = await axios.get(`${URL}/users`)
 
-            setUsers(response.data)
+            setUsers(response.data.users)
 
         } catch (error) {
             console.log(error)
@@ -56,12 +53,27 @@ export default function AdminUser() {
 
         try {
 
+            const formData = new FormData()
+            formData.append("name", usuario.name);
+            formData.append("mail", usuario.mail);
+            formData.append("password", usuario.password);
+            formData.append("birthday", usuario.birthday);
+            formData.append("province", usuario.province);
+            formData.append("role", usuario.role)
+            if (usuario.image[0]) {
+                formData.append("image", usuario.image[0])
+            }
+
             if (selectedUser) {
                 const { _id } = selectedUser
 
-                const user = await axios.put(`${URL}/users/${_id}`, usuario)
+                const response = await axios.put(`${URL}/users/${_id}`, formData, {
+                    headers: {
+                        Authorization: token
+                    }
+                })
 
-                console.log(user.data)
+                console.log(response.data)
 
                 Swal.fire({
                     title: "Edición correcta",
@@ -74,27 +86,31 @@ export default function AdminUser() {
 
 
             } else {
-                const user = await axios.post(`${URL}/users`, usuario)
-                console.log(user.data) //
+                const response = await axios.post(`${URL}/users`, formData, {
+                    headers: {
+                        Authorization: token
+                    }
+                })
+                console.log(response.data.users) 
+
+                Swal.fire({
+                    title: "Usuario creado",
+                    text: "Su usuario fue creado correctamente",
+                    icon: "success",
+                    timer: 1500
+                })
+    
 
             }
             reset()
             getUsers()
-
-            Swal.fire({
-                title: "Usuario creado",
-                text: "Su usuario fue creado correctamente",
-                icon: "success",
-                timer: 1500
-            })
-
 
         } catch (error) {
             console.log(error)
         }
     }
 
-    function deleteUser(id) {
+    function deleteUser(_id) {
 
         Swal.fire({
             title: "Borrar usuario",
@@ -105,9 +121,20 @@ export default function AdminUser() {
         }).then(async (result) => {
             try {
                 if (result.isConfirmed) {
-                    const response = await axios.delete(`${URL}/users/${id}`);
+                    const response = await axios.delete(`${URL}/users/${_id}`, {
+                        headers: {
+                            Authorization: token
+                        }
+                    });
 
-                    console.log(response.data);
+                    console.log(response.data.user);
+
+                    Swal.fire({
+                        title: "Usuario borrado",
+                        text: "El usuario fue borrado correctamente",
+                        icon: "success",
+                        time: 1500
+                    })
 
                     getUsers();
                 }
@@ -116,7 +143,8 @@ export default function AdminUser() {
                 Swal.fire({
                     title: "Error al borrar",
                     text: "El usuario no fue borrado",
-                    icon: "error"
+                    icon: "error",
+                    time: 1500
                 })
                 
             }
@@ -148,11 +176,11 @@ export default function AdminUser() {
 
                         <div className="item-registro">
                             <label htmlFor="password">Contraseña</label>
-                            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 70 })} />
+                            <input type="password" id="password" {...register("password", { required: true, minLength: 4, maxLength: 120 })} />
 
                             {errors.password?.type === "required" && <div className="input-error">El campo es requerido</div>}
                             {errors.password?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 4</div>}
-                            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 70</div>}
+                            {errors.password?.type === "maxLength" && <div className="input-error">El máximo de caracteres es 120</div>}
                         </div>
 
                         <div className="item-registro">
@@ -165,7 +193,7 @@ export default function AdminUser() {
                         <div className="item-registro">
                             <label htmlFor="mail">Correo electrónico</label>
                             <input type="email" id="mail" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" placeholder="ejemplo@gmail.com"
-                                {...register("mail", { required: true, minLength: 7, maxLength: 90 })}
+                                {...register("mail", { required: true, minLength: 5, maxLength: 90 })}
                             />
                             {errors.mail?.type === "required" && <div className="input-error">El campo es requerido</div>}
                             {errors.mail?.type === "minLength" && <div className="input-error">El mínimo de caracteres es 7</div>}

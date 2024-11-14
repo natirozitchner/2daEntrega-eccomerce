@@ -264,7 +264,8 @@ body {
 
   .date, 
   .birthday,
-  .role {
+  .role,
+  .province {
       font-size: 16px;
       color: #58341bd5;
       font-weight: 600;
